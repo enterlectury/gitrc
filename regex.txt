@@ -1,0 +1,360 @@
+# =============================================================================
+# regex.txt — Custom Regex Patterns for Secret Detection
+# Used by: gitrc.sh (--regex-scan)
+# Format:  NAME|||PATTERN   (3 pipes as separator)
+# Lines starting with # are comments (ignored)
+# Edit freely — one pattern per line
+# =============================================================================
+
+# --- AWS ---
+AWS Access Key|||(?:A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+AWS Secret Key|||(?i)aws(.{0,20})?['\"][0-9a-zA-Z\/+]{40}['\"]
+AWS MWS Key|||amzn\.mws\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+AWS AppSync Key|||da2-[a-z0-9]{26}
+AWS Cognito Pool|||(us-east-1|us-east-2|us-west-1|us-west-2|sa-east-1):[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}
+Amazon SNS Topic|||arn:aws:sns:[a-z0-9\-]+:[0-9]+:[A-Za-z0-9\-_]+
+Amazon S3 URL|||s3\.amazonaws\.com[/]+|[a-zA-Z0-9_-]*\.s3\.amazonaws\.com
+Amazon S3 URL2|||([a-zA-Z0-9-._]+\.s3\.amazonaws\.com|s3://[a-zA-Z0-9-._]+|s3-[a-zA-Z0-9-._/]+|s3\.amazonaws\.com/[a-zA-Z0-9-._]+)
+
+# --- Google ---
+Google API Key|||AIza[0-9A-Za-z\-_]{35}
+Google OAuth Access Token|||ya29\.[0-9A-Za-z\-_]+
+Google OAuth Client Secret|||"client_secret":"[a-zA-Z0-9-_]{24}"
+Google OAuth Client ID|||[0-9]{12}-[0-9A-Za-z_]{32}\.apps\.googleusercontent\.com
+Google Cloud Service Account|||"type":\s*"service_account"
+Google Captcha Key|||6L[0-9A-Za-z\-_]{38}
+
+# --- GitHub ---
+GitHub Personal Access Token|||ghp_[0-9a-zA-Z]{36}
+GitHub OAuth Access Token|||gho_[0-9a-zA-Z]{36}
+GitHub App Token|||(ghu|ghs)_[0-9a-zA-Z]{36}
+GitHub Refresh Token|||ghr_[0-9a-zA-Z]{76}
+GitHub Token (generic)|||(?i)\b(gh[pousr]_[0-9a-zA-Z]{36})\b
+GitHub Credentials in URL|||[a-zA-Z0-9_-]*:[a-zA-Z0-9_\-]+@github\.com
+
+# --- GitLab ---
+GitLab Personal Access Token|||glpat-[0-9a-zA-Z\-_]{20}
+GitLab Runner Token|||GR1348941[a-zA-Z0-9\-=_]{20,40}
+
+# --- Slack ---
+Slack Token|||xox[baprs]-([0-9a-zA-Z]{10,48})?
+Slack Bot Token|||xoxb-[A-Za-z0-9-]{24,34}
+Slack User Token|||xoxp-[A-Za-z0-9-]{24,34}
+Slack Client Secret|||xoxs-[0-9]{1,9}\.[0-9A-Za-z]{1,12}\.[0-9A-Za-z]{24,64}
+Slack API Token (JSON)|||"api_token":"(xox[a-zA-Z]-[a-zA-Z0-9-]+)"
+Slack Webhook URL|||https://hooks\.slack\.com/services/T[a-zA-Z0-9_]{8}/B[a-zA-Z0-9_]{8,12}/[a-zA-Z0-9_]{24}
+
+# --- Stripe ---
+Stripe Live Secret Key|||sk_live_[0-9a-zA-Z]{24}
+Stripe Live Publishable Key|||pk_live_[0-9a-zA-Z]{24}
+Stripe Restricted Key|||rk_live_[0-9a-zA-Z]{24}
+Stripe Test Secret Key|||sk_test_[0-9a-zA-Z]{24}
+Stripe Test Publishable Key|||pk_test_[0-9a-zA-Z]{24}
+
+# --- Twilio ---
+Twilio API Key|||(?i)twilio(.{0,20})?SK[0-9a-f]{32}
+Twilio Account SID|||(?i)\b(?:twilio|tw)\s*[_-]?account[_-]?sid\s*[:=]\s*["']?AC[a-zA-Z0-9_\-]{32}["']?
+Twilio App SID|||AP[a-zA-Z0-9_\-]{32}
+Twilio Auth Token|||\W[a-f0-9]{32}\W
+
+# --- Facebook ---
+Facebook Secret Key|||(?i)(facebook|fb)(.{0,20})?['\"][0-9a-f]{32}['\"]
+Facebook Client ID|||(?i)(facebook|fb)(.{0,20})?['\"][0-9]{13,17}['\"]
+Facebook Access Token|||EAACEdEose0cBA[0-9A-Za-z]+
+Facebook OAuth|||(?i)[fF][aA][cC][eE][bB][oO][oO][kK].*['\"]?[0-9a-f]{32}['\"]?
+
+# --- Twitter ---
+Twitter Secret Key|||(?i)twitter(.{0,20})?[0-9a-z]{35,44}
+Twitter Client ID|||(?i)twitter(.{0,20})?[0-9a-z]{18,25}
+Twitter OAuth Token|||(?i)\b(?:twitter|tw)\s*[_-]?oauth[_-]?token\s*[:=]\s*["']?[0-9a-zA-Z]{35,44}["']?
+Twitter Access Token|||(?i)\b(?:twitter|tw)\s*[_-]?access[_-]?token\s*[:=]\s*["']?[0-9]+-[0-9a-zA-Z]{40}["']?
+Twitter Bearer Token|||(?i)^AAAAAAAAAAAAAAAAAAAAA[A-Za-z0-9]{30,45}$
+
+# --- SendGrid ---
+SendGrid API Key|||SG\.[A-Za-z0-9_\-]{22}\.[A-Za-z0-9_\-]{43}
+
+# --- Mailchimp ---
+MailChimp API Key|||[0-9a-f]{32}-us[0-9]{1,2}
+
+# --- Mailgun ---
+Mailgun API Key|||key-[0-9a-zA-Z]{32}
+
+# --- PayPal / Braintree ---
+PayPal Braintree Access Token|||access_token\$production\$[0-9a-z]{16}\$[0-9a-f]{32}
+
+# --- Square ---
+Square Access Token|||sq0atp-[0-9A-Za-z\-_]{22}
+Square OAuth Secret|||sq0csp-[0-9A-Za-z\-_]{43}
+Square Access Token 2|||EAAA[a-zA-Z0-9]{60}
+
+# --- Heroku ---
+Heroku API Key|||(?i)heroku(.{0,20})?[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+Heroku API Key 2|||(?i)[hH][eE][rR][oO][kK][uU].*[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}
+
+# --- Cloudinary ---
+Cloudinary Basic Auth|||cloudinary://[0-9]{15}:[0-9A-Za-z\-_]+@[0-9A-Za-z\-_]+
+
+# --- Firebase ---
+Firebase Database URL|||([a-z0-9.-]+\.firebaseio\.com|[a-z0-9.-]+\.firebaseapp\.com)
+Firebase Web API Key|||AAAA[A-Za-z0-9_-]{7}:[A-Za-z0-9_-]{140}(?:\s|$|[^A-Za-z0-9_-])
+
+# --- Shopify ---
+Shopify Access Token|||shpat_[a-fA-F0-9]{32}
+Shopify Shared Secret|||shpss_[a-fA-F0-9]{32}
+Shopify Custom App Token|||shpca_[a-fA-F0-9]{32}
+Shopify Private App Token|||shppa_[a-fA-F0-9]{32}
+
+# --- Digital Ocean ---
+DigitalOcean Personal Access Token|||dop_v1_[0-9a-f]{64}
+
+# --- Okta ---
+Okta Token|||00[0-9a-zA-Z]{30}\.[a-zA-Z0-9\-_]{30,}\.[a-zA-Z0-9\-_]{30,}
+
+# --- Telegram ---
+Telegram Bot Token|||[0-9]{8,10}:AA[0-9A-Za-z_-]{35}
+
+# --- Discord ---
+Discord Webhook URL|||https://discord(?:app)?\.com/api/webhooks/[0-9]{18,20}/[A-Za-z0-9_-]{64,}
+Discord Bot Token|||[MN][A-Za-z\d]{23}\.[\w-]{6}\.[\w-]{27}
+
+# --- Sentry ---
+Sentry Auth Token|||sentry_auth_token_[0-9a-zA-Z]{70}
+
+# --- Dynatrace ---
+Dynatrace Token|||dt0[a-zA-Z]{1}[0-9]{2}\.[A-Z0-9]{24}\.[A-Z0-9]{64}
+
+# --- Mapbox ---
+Mapbox Access Token|||pk\.[a-zA-Z0-9]{60}\.[a-zA-Z0-9]{22}
+
+# --- Datadog ---
+Datadog API Key|||ddapi_[a-zA-Z0-9]{32}
+
+# --- Segment ---
+Segment Write Key|||sk_[A-Za-z0-9]{32}
+
+# --- Netlify ---
+Netlify Token|||(?i)netlify(.{0,20})?['\"][0-9a-zA-Z]{40}['\"]
+
+# --- Zoom ---
+Zoom JWT Token|||(?i)zoom(.{0,20})?['\"][0-9a-zA-Z\-_\.]{36,160}['\"]
+
+# --- Bugsnag ---
+Bugsnag API Key|||(?i)(bs|bugsnag)(.{0,20})?[0-9a-f]{32}
+
+# --- Adobe ---
+Adobe Client Credentials|||(?i)adobe(.{0,20})?['\"][a-zA-Z0-9]{32,56}['\"]
+
+# --- PyPI ---
+PyPI Upload Token|||pypi-AgEIcHlwaS5vcmc[A-Za-z0-9\-_]{50,1000}
+
+# --- Picatic ---
+Picatic API Key|||sk_live_[0-9a-z]{32}
+
+# --- LinkedIn ---
+LinkedIn Client ID|||(?i)linkedin(.{0,20})?(?-i)[0-9a-z]{12}
+LinkedIn Secret Key|||(?i)linkedin(.{0,20})?[0-9a-z]{16}
+
+# --- Salesforce ---
+Salesforce Access Token|||00D[0-9A-Za-z]{15,18}![A-Za-z0-9]{40}
+
+# --- Dropbox ---
+Dropbox Access Token|||sl\.[a-zA-Z0-9_-]{136}
+
+# --- Instagram ---
+Instagram Access Token|||IGQV[A-Za-z0-9._-]{10,}
+
+# --- TikTok ---
+TikTok Access Token|||tiktok_access_token=[a-zA-Z0-9_]+
+
+# --- Alibaba Cloud ---
+Alibaba Cloud Access Key|||(?:LTAI)[a-z0-9]{20}
+
+# --- Tencent Cloud ---
+Tencent Cloud Access Key|||^AKID[A-Za-z0-9]{13,20}$
+
+# --- Atlassian / Jira ---
+Atlassian Access Token|||[a-zA-Z0-9]{20,}\.[a-zA-Z0-9_-]{6,}\.[a-zA-Z0-9_-]{25,}
+
+# --- New Relic ---
+New Relic Key|||(NRAK-[A-Z0-9]{27})|(NRJS-[a-f0-9]{19})
+
+# --- Artifactory ---
+Artifactory Token|||["']AKC[a-zA-Z0-9]{10,}["']|["']AP[0-9ABCDEF][a-zA-Z0-9]{8,}["']
+
+# --- Grafana ---
+Grafana API Key|||eyJrIjoi[a-z0-9_=\-]{72,92}
+
+# --- Private Keys ---
+RSA Private Key|||-----BEGIN RSA PRIVATE KEY-----
+DSA Private Key|||-----BEGIN DSA PRIVATE KEY-----
+EC Private Key|||-----BEGIN EC PRIVATE KEY-----
+PGP Private Key Block|||-----BEGIN PGP PRIVATE KEY BLOCK-----
+OpenSSH Private Key|||-----BEGIN OPENSSH PRIVATE KEY-----
+Generic Private Key|||-----BEGIN.*PRIVATE KEY-----
+SSH2 Encrypted Private Key|||-----BEGIN SSH2 ENCRYPTED PRIVATE KEY-----
+PuTTY Private Key|||PuTTY-User-Key-File-2
+
+# --- JWT ---
+JSON Web Token|||ey[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$
+
+# --- Auth Headers ---
+Authorization Basic|||(?i)\bauthorization\s*:\s*basic\s+[a-zA-Z0-9=:_\+\/\-]{20,100}
+Authorization Bearer|||(?i)\bauthorization\s*:\s*bearer\s+[a-zA-Z0-9_\-\.=:_\+\/]{20,100}
+
+# --- Generic Secrets ---
+Generic API Key|||(?i)\bapi[_-]?key\s*[:=]\s*['\"]?[0-9a-zA-Z]{32,45}['\"]?
+Generic Secret|||(?i)\bsecret\s*[:=]\s*['\"]?[0-9a-zA-Z]{32,45}['\"]?
+Password in URL|||[a-zA-Z]{3,10}://[^/\s:@]{3,20}:[^/\s:@]{3,20}@.{1,100}["'\s]
+Credentials in URL|||://[a-zA-Z0-9]+:[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]+
+High Entropy String (64-char)|||([a-z0-9_ \.,\-]{0,25})(=|>|:=|\|\|:|<=|=>|:).{0,5}['"]([a-zA-Z0-9]{64})['"]
+
+# --- CMS Password Hashes ---
+WordPress Password Hash|||\\$P\\$[a-zA-Z0-9_\/\.]{31}
+Drupal Password Hash|||\\$S\\$[a-zA-Z0-9_\/\.]{52}
+
+# --- Contact Info ---
+Email Address|||[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}
+Phone Number|||^\+\d{9,14}$
+
+# =============================================================================
+# KEYWORD PATTERNS — underscore-connected variable assignments only
+# Rule: keyword MUST be part of a word_word style variable name (uses _)
+#       followed by = or : and a non-trivial value.
+# Standalone words like 'auth' or 'authsecret' (no underscore) are excluded.
+# =============================================================================
+
+# --- AWS ---
+Keyword: aws_access_key_id|||(?i)\baws_access_key_id\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: aws_secret_access_key|||(?i)\baws_secret_access_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: aws_secret_key|||(?i)\baws_secret_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: aws_access_key|||(?i)\baws_access_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: aws_secret_token|||(?i)\baws_secret_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: aws_session_token|||(?i)\baws_session_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: aws_bucket|||(?i)\baws_bucket\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-\.]{4,}['\"]?
+Keyword: aws_config|||(?i)\baws_config\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-\.]{4,}['\"]?
+Keyword: aws_default_region|||(?i)\baws_default_region\s*[:=]\s*['\"]?[A-Za-z0-9\-]{4,}['\"]?
+
+# --- Database ---
+Keyword: db_password|||(?i)\bdb_password\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-!@#$%^&*]{6,}['\"]?
+Keyword: db_passwd|||(?i)\bdb_passwd\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-!@#$%^&*]{6,}['\"]?
+Keyword: db_username|||(?i)\bdb_username\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{3,}['\"]?
+Keyword: db_host|||(?i)\bdb_host\s*[:=]\s*['\"]?[A-Za-z0-9_\-\.]{4,}['\"]?
+Keyword: db_port|||(?i)\bdb_port\s*[:=]\s*['\"]?[0-9]{2,5}['\"]?
+Keyword: db_server|||(?i)\bdb_server\s*[:=]\s*['\"]?[A-Za-z0-9_\-\.]{4,}['\"]?
+Keyword: db_connection|||(?i)\bdb_connection\s*[:=]\s*['\"]?[A-Za-z0-9_\-\.]{4,}['\"]?
+Keyword: db_database|||(?i)\bdb_database\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{3,}['\"]?
+Keyword: database_password|||(?i)\bdatabase_password\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-!@#$%^&*]{6,}['\"]?
+Keyword: database_url|||(?i)\bdatabase_url\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-\.:/]{8,}['\"]?
+Keyword: database_username|||(?i)\bdatabase_username\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{3,}['\"]?
+Keyword: database_host|||(?i)\bdatabase_host\s*[:=]\s*['\"]?[A-Za-z0-9_\-\.]{4,}['\"]?
+Keyword: database_logging|||(?i)\bdatabase_logging\s*[:=]\s*['\"]?(true|false|1|0)['\"]?
+Keyword: mysql_password|||(?i)\bmysql_password\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-!@#$%^&*]{6,}['\"]?
+Keyword: postgres_password|||(?i)\bpostgres_password\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-!@#$%^&*]{6,}['\"]?
+Keyword: root_password|||(?i)\broot_password\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-!@#$%^&*]{6,}['\"]?
+Keyword: django_password|||(?i)\bdjango_password\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-!@#$%^&*]{6,}['\"]?
+
+# --- API / Secret / Key ---
+Keyword: api_key|||(?i)\bapi_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: api_secret|||(?i)\bapi_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: app_key|||(?i)\bapp_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: app_secret|||(?i)\bapp_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: app_id|||(?i)\bapp_id\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{8,}['\"]?
+Keyword: application_id|||(?i)\bapplication_id\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{8,}['\"]?
+Keyword: client_secret|||(?i)\bclient_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: secret_key|||(?i)\bsecret_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: secret_token|||(?i)\bsecret_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: secret_access_key|||(?i)\bsecret_access_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: secret_bearer|||(?i)\bsecret_bearer\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: private_key|||(?i)\bprivate_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+
+# --- Tokens ---
+Keyword: access_token|||(?i)\baccess_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: access_key|||(?i)\baccess_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: auth_token|||(?i)\bauth_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: account_sid|||(?i)\baccount_sid\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: security_credentials|||(?i)\bsecurity_credentials\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: asws_secret_token|||(?i)\basws_secret_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+
+# --- JWT ---
+Keyword: jwt_secret|||(?i)\bjwt_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: jwt_secret_key|||(?i)\bjwt_secret_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: jwt_password|||(?i)\bjwt_password\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{6,}['\"]?
+Keyword: jwt_passphrase|||(?i)\bjwt_passphrase\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{6,}['\"]?
+Keyword: jwt_public_key|||(?i)\bjwt_public_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: jwt_secret_token|||(?i)\bjwt_secret_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: jwt_token|||(?i)\bjwt_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: jwt_user|||(?i)\bjwt_user\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{3,}['\"]?
+
+# --- Slack ---
+Keyword: slack_token|||(?i)\bslack_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: slack_key|||(?i)\bslack_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: slack_webhook|||(?i)\bslack_webhook\s*[:=]\s*['\"]?https?://[A-Za-z0-9+/=_\-\./:]{10,}['\"]?
+Keyword: slack_webhook_url|||(?i)\bslack_webhook_url\s*[:=]\s*['\"]?https?://[A-Za-z0-9+/=_\-\./:]{10,}['\"]?
+Keyword: slack_signing_secret|||(?i)\bslack_signing_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: slack_incoming_webhook|||(?i)\bslack_incoming_webhook\s*[:=]\s*['\"]?https?://[A-Za-z0-9+/=_\-\./:]{10,}['\"]?
+Keyword: slack_outgoing_token|||(?i)\bslack_outgoing_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: slack_secret|||(?i)\bslack_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: slack_channel|||(?i)\bslack_channel\s*[:=]\s*['\"]?[A-Za-z0-9_\-#]{3,}['\"]?
+Keyword: slack_url|||(?i)\bslack_url\s*[:=]\s*['\"]?https?://[A-Za-z0-9+/=_\-\./:]{10,}['\"]?
+
+# --- Stripe ---
+Keyword: stripe_key|||(?i)\bstripe_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: stripe_secret|||(?i)\bstripe_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: stripe_token|||(?i)\bstripe_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: stripe_secret_token|||(?i)\bstripe_secret_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: strip_key|||(?i)\bstrip_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: strip_secret|||(?i)\bstrip_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: strip_secret_token|||(?i)\bstrip_secret_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: strip_token|||(?i)\bstrip_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+
+# --- Heroku ---
+Keyword: heroku_api_key|||(?i)\bheroku_api_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: heroku_key|||(?i)\bheroku_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: heroku_secret|||(?i)\bheroku_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: heroku_oauth|||(?i)\bheroku_oauth\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: heroku_oauth_token|||(?i)\bheroku_oauth_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: heroku_oauth_secret|||(?i)\bheroku_oauth_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: heroku_secret_token|||(?i)\bheroku_secret_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+
+# --- Google ---
+Keyword: google_id|||(?i)\bgoogle_id\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{8,}['\"]?
+Keyword: google_oauth|||(?i)\bgoogle_oauth\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: google_oauth_client_id|||(?i)\bgoogle_oauth_client_id\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-\.]{16,}['\"]?
+Keyword: google_oauth_client_secret|||(?i)\bgoogle_oauth_client_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: google_oauth_secret|||(?i)\bgoogle_oauth_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: google_secret|||(?i)\bgoogle_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: google_server_key|||(?i)\bgoogle_server_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: gsecr|||(?i)\bgsecr\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+
+# --- Zendesk ---
+Keyword: zendesk_api_token|||(?i)\bzendesk_api_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: zendesk_key|||(?i)\bzendesk_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: zendesk_token|||(?i)\bzendesk_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: zendesk_url|||(?i)\bzendesk_url\s*[:=]\s*['\"]?https?://[A-Za-z0-9+/=_\-\./:]{8,}['\"]?
+Keyword: zendesk_username|||(?i)\bzendesk_username\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-@\.]{3,}['\"]?
+
+# --- Twilio ---
+Keyword: sid_token|||(?i)\bsid_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: sid_twilio|||(?i)\bsid_twilio\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+
+# --- Admin / App Framework ---
+Keyword: admin_pass|||(?i)\badmin_pass\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-!@#$%^&*]{6,}['\"]?
+Keyword: admin_user|||(?i)\badmin_user\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{3,}['\"]?
+Keyword: bucket_password|||(?i)\bbucket_password\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-!@#$%^&*]{6,}['\"]?
+Keyword: htaccess_pass|||(?i)\bhtaccess_pass\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-!@#$%^&*]{6,}['\"]?
+Keyword: htaccess_user|||(?i)\bhtaccess_user\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{3,}['\"]?
+Keyword: app_debug|||(?i)\bapp_debug\s*[:=]\s*['\"]?(true|false|1|0)['\"]?
+Keyword: app_env|||(?i)\bapp_env\s*[:=]\s*['\"]?[A-Za-z0-9_\-]{3,}['\"]?
+Keyword: app_log_level|||(?i)\bapp_log_level\s*[:=]\s*['\"]?[A-Za-z]{3,}['\"]?
+Keyword: app_name|||(?i)\bapp_name\s*[:=]\s*['\"]?[A-Za-z0-9_\- ]{3,}['\"]?
+Keyword: app_url|||(?i)\bapp_url\s*[:=]\s*['\"]?https?://[A-Za-z0-9+/=_\-\./:]{8,}['\"]?
+
+# --- Asana / Atlassian ---
+Keyword: asana_client_id|||(?i)\basana_client_id\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{8,}['\"]?
+Keyword: asana_client_secret|||(?i)\basana_client_secret\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+Keyword: atlassian_api_key|||(?i)\batlassian_api_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{16,}['\"]?
+
+# --- Zen ---
+Keyword: zen_key|||(?i)\bzen_key\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{8,}['\"]?
+Keyword: zen_tkn|||(?i)\bzen_tkn\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{8,}['\"]?
+Keyword: zen_token|||(?i)\bzen_token\s*[:=]\s*['\"]?[A-Za-z0-9+/=_\-]{8,}['\"]?
